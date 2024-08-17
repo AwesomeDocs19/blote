@@ -12,7 +12,6 @@ function drawLine(x1, y1, x2, y2) {
   ];
   return linePath;
 }
-
 function drawComplexStar(cx, cy, spikes, outerRadius, innerRadius, layers) {
   const step = Math.PI / spikes;
   const paths = [];
@@ -29,8 +28,22 @@ function drawComplexStar(cx, cy, spikes, outerRadius, innerRadius, layers) {
     }
     path.push(path[0]); // Close the star shape
 
-    paths.push(path);
+    const starPath = [];
+    for (let i = 0; i < path.length - 1; i++) {
+      const [x1, y1] = path[i];
+      const [x2, y2] = path[i + 1];
+      const line = drawLine(x1, y1, x2, y2);
+      starPath.push(...line);
+    }
+
+    applyTransformations(starPath, l * 10, [0, 0]);
+    paths.push(starPath);
   }
 
   return paths;
+}
+
+function applyTransformations(shapePath, rotationAngle, translation) {
+  bt.rotate(shapePath, rotationAngle);
+  bt.translate(shapePath, translation);
 }
