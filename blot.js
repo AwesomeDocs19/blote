@@ -12,6 +12,12 @@ function drawLine(x1, y1, x2, y2) {
   ];
   return linePath;
 }
+function applyTransformations(shapePath, rotationAngle, translation) {
+  bt.rotate(shapePath, rotationAngle);
+  bt.translate(shapePath, translation);
+}
+/////
+
 function drawComplexStar(cx, cy, spikes, outerRadius, innerRadius, layers) {
   const step = Math.PI / spikes;
   const paths = [];
@@ -26,7 +32,7 @@ function drawComplexStar(cx, cy, spikes, outerRadius, innerRadius, layers) {
       const y = cy + Math.sin(i * step) * rad;
       path.push([x, y]);
     }
-    path.push(path[0]); // Close the star shape
+    path.push(path[0]); // Close
 
     const starPath = [];
     for (let i = 0; i < path.length - 1; i++) {
@@ -43,11 +49,6 @@ function drawComplexStar(cx, cy, spikes, outerRadius, innerRadius, layers) {
   return paths;
 }
 
-function applyTransformations(shapePath, rotationAngle, translation) {
-  bt.rotate(shapePath, rotationAngle);
-  bt.translate(shapePath, translation);
-}
-
 function createstuff(rows, cols, spacing) {
   const stars = [];
 
@@ -56,11 +57,11 @@ function createstuff(rows, cols, spacing) {
       const cx = col * spacing;
       const cy = row * spacing;
 
-      const spikes = bt.randIntInRange(5, 12); // Random spikes between 5 and 12
-      const outerRadius = bt.randIntInRange(20, 50); // Random outer radius between 20 and 50
+      const spikes = bt.randIntInRange(5, 12);
+      const outerRadius = bt.randIntInRange(20, 50);
       const innerRadius = outerRadius * 0.5;
-      const layers = bt.randIntInRange(2, 4); // Random layers between 2 and 4
-      const rotationAngle = bt.randIntInRange(0, 360); // Random rotation angle between 0 and 360 degrees
+      const layers = bt.randIntInRange(2, 4);
+      const rotationAngle = bt.randIntInRange(0, 360);
 
       const star = drawComplexStar(cx, cy, spikes, outerRadius, innerRadius, layers);
       star.forEach(path => applyTransformations(path, rotationAngle, [0, 0]));
