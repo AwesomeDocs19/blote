@@ -47,3 +47,32 @@ function applyTransformations(shapePath, rotationAngle, translation) {
   bt.rotate(shapePath, rotationAngle);
   bt.translate(shapePath, translation);
 }
+
+
+function applyTransformations(shapePath, rotationAngle, translation) {
+  bt.rotate(shapePath, rotationAngle);
+  bt.translate(shapePath, translation);
+}
+
+function createstuff(rows, cols, spacing) {
+  const stars = [];
+
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      const cx = col * spacing;
+      const cy = row * spacing;
+
+      const spikes = bt.randIntInRange(5, 12); // Random spikes between 5 and 12
+      const outerRadius = bt.randIntInRange(20, 50); // Random outer radius between 20 and 50
+      const innerRadius = outerRadius * 0.4;
+      const layers = bt.randIntInRange(2, 4); // Random layers between 2 and 4
+      const rotationAngle = bt.randIntInRange(0, 360); // Random rotation angle between 0 and 360 degrees
+
+      const star = drawComplexStar(cx, cy, spikes, outerRadius, innerRadius, layers);
+      star.forEach(path => applyTransformations(path, rotationAngle, [0, 0]));
+      stars.push(star.flat());
+    }
+  }
+
+  return stars;
+}
