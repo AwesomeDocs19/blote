@@ -71,3 +71,7 @@ function createstuff(rows, cols, spacing) {
 
   return stars;
 }
+
+
+const galaxyStars = createstuff(rows, cols, spacing);
+galaxyStars.forEach(path => drawLines(path));
