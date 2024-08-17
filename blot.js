@@ -21,7 +21,7 @@ function drawComplexStar(cx, cy, spikes, outerRadius, innerRadius, layers) {
     const radius = outerRadius - l * (outerRadius - innerRadius) / (layers - 1);
 
     for (let i = 0; i < 2 * spikes; i++) {
-      const rad = i % 2 === 0 ? radius : radius * 0.7;
+      const rad = i % 2 === 0 ? radius : radius * 0.5;
       const x = cx + Math.cos(i * step) * rad;
       const y = cy + Math.sin(i * step) * rad;
       path.push([x, y]);
